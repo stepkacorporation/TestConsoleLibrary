@@ -52,7 +52,7 @@ class BookStatus(Enum):
         for status in cls:
             if status.value.lower() == value:
                 return status
-        raise ValueError(f'Неверное значение: \'{value}\'. Допустимые значения: {", ".join(cls.values())}')
+        raise ValueError(f'Неверное значение: \'{value}\'. Допустимые значения: {tuple(cls.values())}')
 
 
 class Book:
@@ -165,6 +165,9 @@ class Book:
             str: Валидное название книги.
         """
 
+        if not isinstance(title, str):
+            raise ValueError('Название книги должно быть строкой')
+
         title = title.strip()
         if not title or not isinstance(title, str):
             raise ValueError('Название книги должно быть непустой строкой')
@@ -188,8 +191,11 @@ class Book:
             str: Валидное имя автора.
         """
 
+        if not isinstance(author, str):
+            raise ValueError('Имя автора должно быть строкой')
+
         author = author.strip()
-        if not author or not isinstance(author, str):
+        if not author:
             raise ValueError('Имя автора должно быть непустой строкой')
         if not (cls.MIN_AUTHOR_LENGTH <= len(author) <= cls.MAX_AUTHOR_LENGTH):
             raise ValueError(f'Имя автора должно быть длиной от {cls.MIN_AUTHOR_LENGTH} '
