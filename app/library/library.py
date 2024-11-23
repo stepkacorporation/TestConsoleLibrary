@@ -172,7 +172,7 @@ class Library:
             self._save_books()
             print(f'Книга с ID {book_id} успешно удалена')
         else:
-            print(f'Книга с ID {book_id} не найдена')
+            raise ValueError(f'Книга с ID {book_id} не найдена')
 
     def search_books(self, keyword: str, field: str) -> list[Book]:
         """
